@@ -4,6 +4,14 @@ import sys
 import json
 import os
 
+def resource_path(relative_path):
+    """Get absolute path to resource (works for dev and PyInstaller)"""
+    try:
+        base_path = getattr(sys, "_MEIPASS", os.path.abspath("."))
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
 pygame.init()
 pygame.mixer.init()
 
@@ -15,15 +23,18 @@ clock = pygame.time.Clock()
 FPS = 60
 
 # Load Assets
-player_img = pygame.image.load("assets/player.png")
-enemy_img = pygame.image.load("assets/enemy.png")
-boss_img = pygame.image.load("assets/boss.png")
-bullet_img = pygame.image.load("assets/bullet.png")
-powerup_img = pygame.image.load("assets/powerup.png")
+#player_img = pygame.image.load("assets/player.png")
+player_img = pygame.image.load(resource_path("assets/player.png"))
+enemy_img = pygame.image.load(resource_path("assets/enemy.png"))
+boss_img = pygame.image.load(resource_path("assets/boss.png"))
+bullet_img = pygame.image.load(resource_path("assets/bullet.png"))
+powerup_img = pygame.image.load(resource_path("assets/powerup.png"))
 
-shoot_sound = pygame.mixer.Sound("assets/shoot.wav")
-explosion_sound = pygame.mixer.Sound("assets/explosion.wav")
-pygame.mixer.music.load("assets/bg_music.wav")
+#shoot_sound = pygame.mixer.Sound("assets/shoot.wav")
+shoot_sound = pygame.mixer.Sound(resource_path("assets/shoot.wav"))
+explosion_sound = pygame.mixer.Sound(resource_path("assets/explosion.wav"))
+#pygame.mixer.music.load("assets/bg_music.wav")
+pygame.mixer.music.load(resource_path("assets/bg_music.wav"))
 pygame.mixer.music.play(-1)
 
 font = pygame.font.SysFont("arial", 25)
